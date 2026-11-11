@@ -17,3 +17,11 @@ test("valida el formato de fecha y hora", async () => {
   const r = await reservar({ fecha: "24/12/2026", hora: "8pm", personas: 2 });
   expect(r.status).toBe(400);
 });
+
+test("no asigna la misma mesa dos veces a la misma fecha y hora", async () => {
+  const datos = { fecha: "2026-12-31", hora: "21:00", personas: 6 };
+  const primera = await reservar(datos);
+  expect(primera.status).toBe(201);
+  const segunda = await reservar(datos); // solo hay una mesa de 6 personas
+  expect(segunda.status).toBe(409);
+});

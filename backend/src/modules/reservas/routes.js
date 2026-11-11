@@ -16,8 +16,9 @@ router.post("/", autenticar, (req, res, next) => {
     return next(httpError(400, "Fecha (aaaa-mm-dd) y hora (hh:mm) son obligatorias"));
   }
   if (!(personas > 0)) return next(httpError(400, "El número de personas debe ser mayor a cero"));
-  // Primera mesa con capacidad suficiente
-  const mesa = db.mesas.find((m) => m.capacidad >= personas);
+  // Primera mesa con capacidad suficiente que no esté ocupada a esa fecha y hora
+  const ocupadas = db.reservas.filter((r) => r.estado === "activa" && r.fecha === fecha && r.hora === hora).map((r) => r.mesa_id);
+  const mesa = db.mesas.find((m) => m.capacidad >= personas && !ocupadas.includes(m.id));
   if (!mesa) return next(httpError(409, "No hay mesas disponibles para esa fecha y hora"));
   const reserva = insertar("reservas", { cliente_id: req.usuario.id, mesa_id: mesa.id, fecha, hora, personas, estado: "activa" });
   res.status(201).json(reserva);
