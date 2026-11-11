@@ -7,6 +7,7 @@ app.use("/api/auth", require("./modules/auth/routes"));
 app.use("/api/menu", require("./modules/menu/routes"));
 app.use("/api/pedidos", require("./modules/pedidos/routes"));
 app.use("/api/reservas", require("./modules/reservas/routes"));
+app.use("/api/caja", require("./modules/caja/routes"));
 
 app.get("/api/salud", (req, res) => res.json({ estado: "ok", version: require("../package.json").version }));
 
