@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
+app.use("/api/auth", require("./modules/auth/routes"));
+
 app.get("/api/salud", (req, res) => res.json({ estado: "ok", version: require("../package.json").version }));
 
 // Manejo centralizado de errores
