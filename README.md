@@ -7,7 +7,7 @@ Node.js 20, PostgreSQL 16 y Git.
 
 ## Instalación
 ```bash
-git clone https://github.com/equipoX/sigr.git
+git clone https://github.com/rubendario90/sigr.git
 cd sigr
 cp .env.example .env              # completar los datos de la base de datos
 psql -U postgres -f database/schema.sql
